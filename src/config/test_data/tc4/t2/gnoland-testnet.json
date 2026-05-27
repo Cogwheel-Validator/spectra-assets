@@ -1,0 +1,7 @@
+{
+  "pretty_name": "Gnoland",
+  "chain_id": "gnoland-test11",
+  "chain_path": "gnoland-testnet",
+  "chain_type": "jbt",
+  "rpcs": ["https://gnoland-testnet-rpc.cogwheel.zone"]
+}

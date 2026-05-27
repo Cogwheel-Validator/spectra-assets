@@ -1,0 +1,6 @@
+{
+  "pretty_name": "Network",
+  "chain_id": "test-1",
+  "chain_path": "test",
+  "chain_type": "vjt",
+  "apis": ["https://atomone-api.cogwheel.zone"]

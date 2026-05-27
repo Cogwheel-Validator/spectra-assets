@@ -1,0 +1,7 @@
+{
+  "pretty_name": "Atom One",
+  "chain_id": "atomone-1",
+  "chain_path": "atomone",
+  "chain_type": "bft",
+  "apis": ["https://atomone-api.cogwheel.zone"]
+}

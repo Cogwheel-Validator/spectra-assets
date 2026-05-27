@@ -1,0 +1,7 @@
+{
+  "pretty_name": "Nibiru Chain",
+  "chain_id": "",
+  "chain_path": "nibiru",
+  "chain_type": "bft",
+  "apis": ["https://nibiru-api.cogwheel.zone"]
+}
