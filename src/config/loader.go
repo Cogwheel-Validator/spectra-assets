@@ -5,7 +5,6 @@ import (
 	"fmt"
 	"log/slog"
 	"os"
-	"strings"
 )
 
 var logger = slog.New(slog.NewTextHandler(os.Stdout, nil))
@@ -27,7 +26,7 @@ func LoadConfigs(path string) ([]ChainConfig, error) {
 				return nil, err
 			}
 			configs = append(configs, subConfigs...)
-		} else if strings.HasSuffix(file.Name(), ".json") {
+		} else if file.Name() == "chain.json" {
 			jsonFile, err := os.ReadFile(fmt.Sprintf("%s/%s", path, file.Name()))
 
 			if err != nil {
