@@ -60,6 +60,8 @@ func unmarshalJson(
 		return fmt.Errorf("failed to unmarshal json config %s, error: %w", file.Name(), err)
 	}
 
+	chainConfig.DataDir = path
+
 	if err := validateConfig(&chainConfig, configs); err != nil {
 		logger.Error("skipped", "chain_id", chainConfig.ChainId, "chain_type", chainConfig.ChainType, "reason", err)
 		return err

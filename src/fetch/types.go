@@ -33,7 +33,8 @@ type Validators struct {
 }
 
 type Validator struct {
-	OperatorAddress string `json:"operator_address"`
+	OperatorAddress string               `json:"operator_address"`
+	Description     ValidatorDescription `json:"description"`
 }
 type ValidatorDescription struct {
 	Moniker  string `json:"moniker"`
