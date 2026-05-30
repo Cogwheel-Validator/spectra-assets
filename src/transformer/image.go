@@ -5,10 +5,9 @@ import (
 	"fmt"
 	"image"
 	"image/jpeg"
+	_ "image/png"
 	"net/http"
 	"os"
-
-	_ "image/jpeg"
 
 	xdraw "golang.org/x/image/draw"
 )
