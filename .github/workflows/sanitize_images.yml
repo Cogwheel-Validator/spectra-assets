@@ -1,0 +1,101 @@
+name: "Sanitize Validator Images"
+run-name: "sanitize-validator-images"
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened]
+    paths:
+      - "data/**"
+
+permissions:
+  contents: write
+
+jobs:
+  sanitize:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout PR branch
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.head_ref }}
+          fetch-depth: 0
+
+      - name: Set up Go
+        uses: actions/setup-go@v6
+        with:
+          go-version-file: go.mod
+
+      - name: Detect validators with logo changes
+        id: detect
+        run: |
+          changed=$(git diff --name-only origin/${{ github.base_ref }}...HEAD)
+
+          pairs=""
+          while IFS= read -r file; do
+            if echo "$file" | grep -qE '^data/[^/]+/[^/]+/logo\.(jpg|jpeg|png)$'; then
+              chain=$(echo "$file" | cut -d/ -f2)
+              address=$(echo "$file" | cut -d/ -f3)
+              entry="$chain/$address"
+              case " $pairs " in
+                *" $entry "*) ;;
+                *) pairs="$pairs $entry" ;;
+              esac
+            fi
+          done <<< "$changed"
+
+          pairs=$(echo "$pairs" | xargs)
+          echo "pairs=$pairs" >> "$GITHUB_OUTPUT"
+
+          if [ -n "$pairs" ]; then
+            echo "Validators with logo changes: $pairs"
+          else
+            echo "No logo changes — nothing to sanitize"
+          fi
+
+      - name: Build CLI
+        if: steps.detect.outputs.pairs != ''
+        run: go build -o spectra-assets .
+
+      - name: Sanitize and swap images
+        if: steps.detect.outputs.pairs != ''
+        env:
+          PAIRS: ${{ steps.detect.outputs.pairs }}
+        run: |
+          for pair in $PAIRS; do
+            chain="${pair%%/*}"
+            address="${pair##*/}"
+            echo "::group::Sanitizing $chain / $address"
+
+            # Process into a temp dir so assets/ is never touched
+            tmp=$(mktemp -d)
+            ./spectra-assets --assets "$tmp" process-entry "$chain" "$address"
+
+            sanitized="$tmp/$chain/$address.jpg"
+            if [ ! -f "$sanitized" ]; then
+              echo "::error::Sanitized image not produced for $chain/$address — rejecting"
+              exit 1
+            fi
+
+            # Remove every logo variant the contributor may have uploaded,
+            # then put the clean re-encoded JPEG in its place.
+            rm -f "data/$chain/$address/logo.jpg" \
+                  "data/$chain/$address/logo.jpeg" \
+                  "data/$chain/$address/logo.png"
+            cp "$sanitized" "data/$chain/$address/logo.jpg"
+
+            rm -rf "$tmp"
+            echo "::endgroup::"
+          done
+
+      - name: Commit swapped images back to PR
+        if: steps.detect.outputs.pairs != ''
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add data/
+          if git diff --cached --quiet; then
+            echo "Images already clean — nothing to commit"
+          else
+            git commit -m "ci: replace uploaded images with sanitized versions [skip ci]"
+            git push origin HEAD:${{ github.head_ref }}
+          fi

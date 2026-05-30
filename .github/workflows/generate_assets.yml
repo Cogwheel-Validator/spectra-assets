@@ -1,0 +1,42 @@
+name: "Generate Assets"
+run-name: "generate-assets"
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - "data/**"
+
+permissions:
+  contents: write
+
+jobs:
+  generate:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Go
+        uses: actions/setup-go@v6
+        with:
+          go-version-file: go.mod
+
+      - name: Build CLI
+        run: go build -o spectra-assets .
+
+      - name: Generate assets
+        run: ./spectra-assets process
+
+      - name: Commit generated assets
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add assets/
+          if git diff --cached --quiet; then
+            echo "Assets already up to date — nothing to commit"
+          else
+            git commit -m "ci: regenerate assets [skip ci]"
+            git push
+          fi
