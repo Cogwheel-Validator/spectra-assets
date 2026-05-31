@@ -41,7 +41,7 @@ func LoadValidators(cfg config.ChainConfig) ([]ValidatorEntry, error) {
 			}
 		}
 
-		for _, name := range []string{"logo.png", "logo.jpg", "logo.jpeg"} {
+		for _, name := range []string{"logo.jpg", "logo.jpeg"} {
 			candidate := filepath.Join(valDir, name)
 			if _, err := os.Stat(candidate); err == nil {
 				entry.LogoPath = candidate

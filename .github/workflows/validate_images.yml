@@ -1,0 +1,124 @@
+name: "Validate Validator Images"
+run-name: "validate-validator-images"
+
+on:
+  pull_request_target:
+    types: [opened, synchronize, reopened]
+    paths:
+      - "data/**"
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout base branch
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.base_ref }}
+          fetch-depth: 0
+
+      - name: Overlay PR data/ onto workspace
+        run: |
+          git fetch origin refs/pull/${{ github.event.pull_request.number }}/head:pr-head
+          git checkout pr-head -- data/
+
+      - name: Set up Go
+        uses: actions/setup-go@v6
+        with:
+          go-version-file: go.mod
+
+      - name: Detect validators with logo changes
+        id: detect
+        run: |
+          changed=$(git diff --name-only origin/${{ github.base_ref }}...pr-head)
+
+          pairs=""
+          while IFS= read -r file; do
+            if echo "$file" | grep -qE '^data/[^/]+/[^/]+/logo\.(jpg|jpeg|png)$'; then
+              chain=$(echo "$file" | cut -d/ -f2)
+              address=$(echo "$file" | cut -d/ -f3)
+              entry="$chain/$address"
+              case " $pairs " in
+                *" $entry "*) ;;
+                *) pairs="$pairs $entry" ;;
+              esac
+            fi
+          done <<< "$changed"
+
+          pairs=$(echo "$pairs" | xargs)
+          echo "pairs=$pairs" >> "$GITHUB_OUTPUT"
+
+          if [ -n "$pairs" ]; then
+            echo "Validators with logo changes: $pairs"
+          else
+            echo "No logo changes — nothing to validate"
+          fi
+
+      - name: Build CLI
+        if: steps.detect.outputs.pairs != ''
+        run: go build -o spectra-assets .
+
+      - name: Validate images are pre-sanitized
+        if: steps.detect.outputs.pairs != ''
+        env:
+          PAIRS: ${{ steps.detect.outputs.pairs }}
+        run: |
+          failed=0
+          for pair in $PAIRS; do
+            chain="${pair%%/*}"
+            address="${pair##*/}"
+            echo "::group::Validating $chain / $address"
+
+            if [ -f "data/$chain/$address/logo.png" ]; then
+              echo "::error file=data/$chain/$address/logo.png::PNG is not accepted — the sanitizer should have replaced it with a JPEG. If you are submitting manually, run: ./spectra-assets process-entry $chain $address"
+              failed=1
+              echo "::endgroup::"
+              continue
+            fi
+
+            submitted=""
+            for ext in jpg jpeg; do
+              candidate="data/$chain/$address/logo.$ext"
+              if [ -f "$candidate" ]; then
+                submitted="$candidate"
+                break
+              fi
+            done
+
+            if [ -z "$submitted" ]; then
+              echo "::error::No logo file found for $chain/$address"
+              failed=1
+              echo "::endgroup::"
+              continue
+            fi
+
+            tmp=$(mktemp -d)
+            ./spectra-assets --assets "$tmp" process-entry "$chain" "$address"
+            sanitized="$tmp/$chain/$address.jpg"
+
+            if [ ! -f "$sanitized" ]; then
+              echo "::error file=$submitted::Sanitizer could not process this image — it may be corrupt or an unsupported format."
+              failed=1
+              rm -rf "$tmp"
+              echo "::endgroup::"
+              continue
+            fi
+
+            submitted_hash=$(sha256sum "$submitted" | cut -d' ' -f1)
+            sanitized_hash=$(sha256sum "$sanitized" | cut -d' ' -f1)
+
+            if [ "$submitted_hash" != "$sanitized_hash" ]; then
+              echo "::error file=$submitted::Image does not match sanitized output — the sanitize workflow may not have run yet, or was bypassed."
+              failed=1
+            else
+              echo "OK — matches sanitized output"
+            fi
+
+            rm -rf "$tmp"
+            echo "::endgroup::"
+          done
+
+          exit $failed
