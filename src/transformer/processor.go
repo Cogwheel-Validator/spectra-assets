@@ -122,7 +122,7 @@ func ProcessEntry(assetsPath string, cfg config.ChainConfig, address string) err
 		}
 	}
 
-	for _, name := range []string{"logo.png", "logo.jpg", "logo.jpeg"} {
+	for _, name := range []string{"logo.jpg", "logo.jpeg"} {
 		candidate := filepath.Join(valDir, name)
 		if _, err := os.Stat(candidate); err == nil {
 			entry.LogoPath = candidate
