@@ -58,9 +58,11 @@ func processChainBFT(chainDir string, cfg config.ChainConfig) error {
 		entry := ValidatorEntry{
 			Address: address,
 			Meta: ValidatorMeta{
-				Moniker:     desc.Moniker,
-				Identity:    desc.Identity,
-				Description: desc.Details,
+				Moniker:         desc.Moniker,
+				Identity:        desc.Identity,
+				Description:     desc.Details,
+				Website:         desc.Website,
+				SecurityContact: desc.SecurityContact,
 			},
 		}
 		// Data-dir entry overrides on-chain fields where it provides values.
@@ -73,6 +75,12 @@ func processChainBFT(chainDir string, cfg config.ChainConfig) error {
 			}
 			if override.Meta.Description != "" {
 				entry.Meta.Description = override.Meta.Description
+			}
+			if override.Meta.Website != "" {
+				entry.Meta.Website = override.Meta.Website
+			}
+			if override.Meta.SecurityContact != "" {
+				entry.Meta.SecurityContact = override.Meta.SecurityContact
 			}
 			entry.DataDir = override.DataDir
 			entry.LogoPath = override.LogoPath
@@ -145,10 +153,12 @@ func processValidatorLogged(entry ValidatorEntry, chainDir, chainId string) {
 
 func processValidator(entry ValidatorEntry, assetsDir string) error {
 	asset := ValidatorAsset{
-		Address:     entry.Address,
-		Moniker:     entry.Meta.Moniker,
-		Identity:    entry.Meta.Identity,
-		Description: entry.Meta.Description,
+		Address:         entry.Address,
+		Moniker:         entry.Meta.Moniker,
+		Identity:        entry.Meta.Identity,
+		Description:     entry.Meta.Description,
+		Website:         entry.Meta.Website,
+		SecurityContact: entry.Meta.SecurityContact,
 	}
 
 	jsonData, err := json.MarshalIndent(asset, "", "  ")

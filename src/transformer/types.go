@@ -1,9 +1,11 @@
 package transformer
 
 type ValidatorMeta struct {
-	Moniker     string `json:"moniker,omitempty"`
-	Identity    string `json:"identity,omitempty"`
-	Description string `json:"description,omitempty"`
+	Moniker         string `json:"moniker,omitempty"`
+	Identity        string `json:"identity,omitempty"`
+	Description     string `json:"description,omitempty"`
+	Website         string `json:"website,omitempty"`
+	SecurityContact string `json:"security_contact,omitempty"`
 }
 
 type ValidatorEntry struct {
@@ -14,8 +16,10 @@ type ValidatorEntry struct {
 }
 
 type ValidatorAsset struct {
-	Address     string `json:"address"`
-	Moniker     string `json:"moniker,omitempty"`
-	Identity    string `json:"identity,omitempty"`
-	Description string `json:"description,omitempty"`
+	Address         string `json:"address"`
+	Moniker         string `json:"moniker,omitempty"`
+	Identity        string `json:"identity,omitempty"`
+	Description     string `json:"description,omitempty"`
+	Website         string `json:"website,omitempty"`
+	SecurityContact string `json:"security_contact,omitempty"`
 }

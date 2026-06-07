@@ -15,9 +15,11 @@ type ChainConfig struct {
 }
 
 type ValidatorData struct {
-	Address     string
-	Moniker     *string `json:"moniker,omitempty"`
-	Identity    *string `json:"identity,omitempty"`
-	Description *string `json:"description,omitempty"`
-	Logo        *os.File
+	Address         string
+	Moniker         *string `json:"moniker,omitempty"`
+	Identity        *string `json:"identity,omitempty"`
+	Description     *string `json:"description,omitempty"`
+	Website         *string `json:"website,omitempty"`
+	SecurityContact *string `json:"security_contact,omitempty"`
+	Logo            *os.File
 }

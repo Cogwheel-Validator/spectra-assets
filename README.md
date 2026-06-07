@@ -39,7 +39,9 @@ For any additional data you can make validator.json file which can contain data 
 {
   "moniker": "Cogwheel ⚙️",
   "identity": "3AB058E3A1912759",
-  "description": "Cogwheel is a PoS validator that offers to delegators explorer to manage your assets, restake-ui and restake services so you can compound your rewards! For devs and users who need it there are public endpoints available. More info on https://cogwheel.zone!"
+  "description": "Cogwheel is a PoS validator that offers to delegators explorer to manage your assets, restake-ui and restake services so you can compound your rewards! For devs and users who need it there are public endpoints available. More info on https://cogwheel.zone!",
+  "website": "https://cogwheel.zone",
+  "security_contact": "info@cogwheel.zone"
 }
 ```
 

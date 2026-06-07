@@ -37,9 +37,11 @@ type Validator struct {
 	Description     ValidatorDescription `json:"description"`
 }
 type ValidatorDescription struct {
-	Moniker  string `json:"moniker"`
-	Details  string `json:"details"`
-	Identity string `json:"identity"`
+	Moniker         string `json:"moniker"`
+	Details         string `json:"details"`
+	Identity        string `json:"identity"`
+	Website         string `json:"website"`
+	SecurityContact string `json:"security_contact"`
 }
 
 type Pagination struct {
