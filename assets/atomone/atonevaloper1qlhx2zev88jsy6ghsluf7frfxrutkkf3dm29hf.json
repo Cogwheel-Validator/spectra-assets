@@ -2,5 +2,7 @@
   "address": "atonevaloper1qlhx2zev88jsy6ghsluf7frfxrutkkf3dm29hf",
   "moniker": "Crosnest",
   "identity": "5F1D6AC7EA588676",
-  "description": "We operate state-of-the-art distributed and redundant validator and relayer infrastructure for Proof of Stake Blockchains."
+  "description": "We operate state-of-the-art distributed and redundant validator and relayer infrastructure for Proof of Stake Blockchains.",
+  "website": "https://www.cros-nest.com",
+  "security_contact": "chainmaster@cros-nest.com"
 }

@@ -2,5 +2,7 @@
   "address": "atonevaloper1fxgm0p4pe9yhhzzqk0th9q73z86p6pz60amhxh",
   "moniker": "RPCdot.com",
   "identity": "562E0CDE78ADFFE8",
-  "description": "Web3's Powerful infrastructure provider RPCdot.com"
+  "description": "Web3's Powerful infrastructure provider RPCdot.com",
+  "website": "https://rpcdot.com",
+  "security_contact": "contact@rpcdot.com"
 }

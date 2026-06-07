@@ -2,5 +2,7 @@
   "address": "atonevaloper1ysvhj4h3z6szgwauuhvytxks9k6s6ktutnjfpv",
   "moniker": "Forbole",
   "identity": "0F527ED1E029E909",
-  "description": "Reliable Web3 Infrastructure Provider. Validating since 2018."
+  "description": "Reliable Web3 Infrastructure Provider. Validating since 2018.",
+  "website": "https://forbole.com",
+  "security_contact": "validator@forbole.com"
 }

@@ -2,5 +2,7 @@
   "address": "atonevaloper1zktzg639sqfspncww5qxcefpnf33h8p0wnqka6",
   "moniker": "NodeRuneR",
   "identity": "D11D6116821283C3",
-  "description": "NodeRuneR Community Center"
+  "description": "NodeRuneR Community Center",
+  "website": "https://www.noderuner.xyz",
+  "security_contact": "info@noderuner.xyz"
 }

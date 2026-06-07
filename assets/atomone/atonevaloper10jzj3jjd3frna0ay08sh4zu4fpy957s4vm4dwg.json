@@ -1,5 +1,7 @@
 {
   "address": "atonevaloper10jzj3jjd3frna0ay08sh4zu4fpy957s4vm4dwg",
   "moniker": "Onbloc Node",
-  "description": "Onbloc is a reliable blockchain infrastructure company based in South Korea."
+  "description": "Onbloc is a reliable blockchain infrastructure company based in South Korea.",
+  "website": "https://onbloc.xyz/",
+  "security_contact": "info@onbloc.xyz"
 }

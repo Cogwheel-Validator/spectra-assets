@@ -2,5 +2,7 @@
   "address": "atonevaloper1gpqlu4ml3hqkfqf3vyrvj8040c6jdrt0l8eg34",
   "moniker": "StakeLab.zone",
   "identity": "F12B081334CBE0C6",
-  "description": "Grow your assets - app.stakelab.zone/stake/atomone"
+  "description": "Grow your assets - app.stakelab.zone/stake/atomone",
+  "website": "https://www.stakelab.zone",
+  "security_contact": "security@stakelab.zone"
 }

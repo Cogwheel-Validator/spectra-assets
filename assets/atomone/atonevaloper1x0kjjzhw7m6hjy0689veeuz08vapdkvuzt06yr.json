@@ -2,5 +2,7 @@
   "address": "atonevaloper1x0kjjzhw7m6hjy0689veeuz08vapdkvuzt06yr",
   "moniker": "p10node",
   "identity": "ED20B05523D06534",
-  "description": "p10node"
+  "description": "p10node",
+  "website": "https://p10node.com",
+  "security_contact": "security@p10node.com"
 }

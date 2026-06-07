@@ -2,5 +2,7 @@
   "address": "atonevaloper1v2srqzaqku25pdndegz3flhez6umfehp503lj6",
   "moniker": "CosmicNode",
   "identity": "98E0AF6FE06D9D30",
-  "description": "CosmicNode, Powered by French Team"
+  "description": "CosmicNode, Powered by French Team",
+  "website": "https://cosmicnode.zone",
+  "security_contact": "support@cosmicnode.zone"
 }

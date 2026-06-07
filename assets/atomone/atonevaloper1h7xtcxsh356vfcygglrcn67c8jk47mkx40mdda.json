@@ -2,5 +2,7 @@
   "address": "atonevaloper1h7xtcxsh356vfcygglrcn67c8jk47mkx40mdda",
   "moniker": "NyanCat",
   "identity": "09D4624417E37ABD",
-  "description": "Your reliable crypto validator. I ensure the security and efficiency of the network by verifying and validating transactions"
+  "description": "Your reliable crypto validator. I ensure the security and efficiency of the network by verifying and validating transactions",
+  "website": "https://nyan-cat.net/",
+  "security_contact": "nyancat.validator@gmail.com"
 }

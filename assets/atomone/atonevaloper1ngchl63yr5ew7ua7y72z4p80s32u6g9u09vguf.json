@@ -2,5 +2,7 @@
   "address": "atonevaloper1ngchl63yr5ew7ua7y72z4p80s32u6g9u09vguf",
   "moniker": "Inter Blockchain Services",
   "identity": "27FD74457A21B020",
-  "description": "Inter Blockchain Services Dpos validator and Relayer of COSMOS ecosystem 🤗 #IBCGANG"
+  "description": "Inter Blockchain Services Dpos validator and Relayer of COSMOS ecosystem 🤗 #IBCGANG",
+  "website": "https://ibs.team",
+  "security_contact": "contact@ibs.team"
 }

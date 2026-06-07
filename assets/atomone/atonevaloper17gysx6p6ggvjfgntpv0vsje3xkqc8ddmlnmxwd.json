@@ -2,5 +2,7 @@
   "address": "atonevaloper17gysx6p6ggvjfgntpv0vsje3xkqc8ddmlnmxwd",
   "moniker": "Allnodes",
   "identity": "3999DA33020A4DBC",
-  "description": "Reliable non-custodial Validator run by the industry leader - Allnodes."
+  "description": "Reliable non-custodial Validator run by the industry leader - Allnodes.",
+  "website": "https://www.allnodes.com",
+  "security_contact": "support@allnodes.com"
 }

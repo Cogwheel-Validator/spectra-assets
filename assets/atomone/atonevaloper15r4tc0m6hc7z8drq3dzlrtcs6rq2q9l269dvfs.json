@@ -2,5 +2,7 @@
   "address": "atonevaloper15r4tc0m6hc7z8drq3dzlrtcs6rq2q9l269dvfs",
   "moniker": "DragonStake 🐲",
   "identity": "EA61A46F31742B22",
-  "description": "Your trusted validator operating on most important networks"
+  "description": "Your trusted validator operating on most important networks",
+  "website": "https://dragonstake.io",
+  "security_contact": "info@dragonstake.io"
 }

@@ -2,5 +2,6 @@
   "address": "atonevaloper1e8tmpgkgdnwvuzv9ep2kw0tje4dpczaunf4gkx",
   "moniker": "BlockSync",
   "identity": "4EE688421E93850F",
-  "description": "BlockSync - Node Operator \u0026 Validator Provider"
+  "description": "BlockSync - Node Operator \u0026 Validator Provider",
+  "website": "https://blocksync.me"
 }

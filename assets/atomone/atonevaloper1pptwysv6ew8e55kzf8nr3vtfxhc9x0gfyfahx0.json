@@ -2,5 +2,7 @@
   "address": "atonevaloper1pptwysv6ew8e55kzf8nr3vtfxhc9x0gfyfahx0",
   "moniker": "NODEJUMPER",
   "identity": "FFB0AA51A2DF5954",
-  "description": "Professional POS Validator services, Cosmos contributors and supporters, Restake.app compatible. Making the blockchain world a better place."
+  "description": "Professional POS Validator services, Cosmos contributors and supporters, Restake.app compatible. Making the blockchain world a better place.",
+  "website": "https://nodejumper.io/",
+  "security_contact": "validator@nodejumper.io"
 }

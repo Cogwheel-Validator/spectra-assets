@@ -2,5 +2,7 @@
   "address": "atonevaloper1re7e8n5arf7c69mr75fqp2v5lcl0ftrr56uxkm",
   "moniker": "Kleomedes",
   "identity": "AD6C05DA12E42B70",
-  "description": "The First Community Governed Validator in the Cosmos 🪐"
+  "description": "The First Community Governed Validator in the Cosmos 🪐",
+  "website": "https://www.kleomed.es",
+  "security_contact": "marco@kleomed.es"
 }
