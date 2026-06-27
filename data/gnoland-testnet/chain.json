@@ -1,6 +1,6 @@
 {
-  "pretty_name": "Gnoland Testnet 11",
-  "chain_id": "test11",
+  "pretty_name": "Gnoland Testnet 13",
+  "chain_id": "test-13",
   "chain_path": "gnoland-testnet",
   "chain_type": "tm2",
   "rpcs": ["https://gnoland-testnet-rpc.cogwheel.zone"]
