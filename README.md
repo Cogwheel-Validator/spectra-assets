@@ -26,9 +26,8 @@ explorers this won't probably reflect unless they also use this assets repo.
 To add image and any data first fork this repo, if you do not know how to do this you can follow the instructions [here](https://docs.github.com/en/get-started/quickstart/fork-a-repo).
 
 In the data directory find the chain where your validators operates and make a directory with a name that 
-matches the validator address. Cosmos SDK chains use bench32valoper. The Gnoland is a bit different since it 
-doesn't have a differentiator for the 2 types of addresses, just make sure you are using the validator 
-address for Gnoland.
+matches the validator address. Cosmos SDK chains use bench32valoper. For Gnoland use strictly use the 
+operator address, do not use the signer address.
 
 For images place your logo image in the directory. It must be named `logo.jpeg` or `logo.jpg`. The `.png` are
 not yet supported. This might change in the future but for now use strictly use `.jpg`.
