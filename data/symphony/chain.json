@@ -1,0 +1,7 @@
+{
+  "pretty_name": "Symphony Network",
+  "chain_id": "symphony-1",
+  "chain_path": "symphony",
+  "chain_type": "bft",
+  "apis": ["https://symphony-api.cogwheel.zone"]
+}
