@@ -27,10 +27,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v6
+        uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
 
       - name: Set up Go
-        uses: actions/setup-go@v6
+        uses: actions/setup-go@b7ad1dad31e06c5925ef5d2fc7ad053ef454303e # v7
         with:
           go-version-file: go.mod
 
@@ -48,6 +48,6 @@ jobs:
           if git diff --cached --quiet; then
             echo "Assets already up to date — nothing to commit"
           else
-            git commit -m "ci: regenerate assets [skip ci]"
+            git commit -m "ci: regenerate assets"
             git push
           fi
