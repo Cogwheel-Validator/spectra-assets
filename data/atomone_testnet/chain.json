@@ -1,0 +1,8 @@
+{
+  "pretty_name": "Atom One Testnet",
+  "chain_id": "atomone-testnet-1",
+  "chain_path": "atomone_testnet",
+  "chain_type": "bft",
+  "apis": ["https://atomone-testnet-api.cogwheel.zone"],
+  "governors": true
+}
