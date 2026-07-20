@@ -10,6 +10,8 @@ type ChainConfig struct {
 	ChainType string   `json:"chain_type"`
 	APIs      []string `json:"apis"`
 	RPCs      []string `json:"rpcs"`
+	// Only present on chains based on new AtomOne SDK
+	Governors bool `json:"governors"`
 	// DataDir is the directory where this chain's data lives; set by the loader.
 	DataDir string `json:"-"`
 }

@@ -34,7 +34,7 @@ func QueryKeybase(identity string) (*KeybaseResponse, error) {
 	return &result, nil
 }
 
-func fetchValoperList(api, nextKey string) *Validators {
+func fetchValoperList(api, nextKey string) (*Validators, error) {
 	query, _ := url.Parse(fmt.Sprintf("%s/cosmos/staking/v1beta1/validators", api))
 	params := url.Values{}
 	if nextKey != "" {
@@ -45,19 +45,54 @@ func fetchValoperList(api, nextKey string) *Validators {
 
 	resp, err := http.Get(query.String())
 	if err != nil {
-		return nil
+		return nil, err
 	}
 	defer resp.Body.Close()
 
+	if resp.StatusCode != http.StatusOK {
+		return nil, fmt.Errorf("unexpected status code: %d", resp.StatusCode)
+	}
+
 	body, err := io.ReadAll(resp.Body)
 	if err != nil {
-		return nil
+		return nil, err
 	}
 
 	var result Validators
 	if err := json.Unmarshal(body, &result); err != nil {
-		return nil
+		return nil, err
 	}
 
-	return &result
+	return &result, nil
+}
+
+func fetchGovernorList(api, nextKey string) (*GovernorsList, error) {
+	query, _ := url.Parse(fmt.Sprintf("%s/cosmos/gov/v1/governors", api))
+	params := url.Values{}
+	if nextKey != "" {
+		params.Set("pagination.key", nextKey)
+	}
+	params.Set("pagination.limit", "100")
+	query.RawQuery = params.Encode()
+
+	resp, err := http.Get(query.String())
+	if err != nil {
+		return nil, err
+	}
+
+	if resp.StatusCode != http.StatusOK {
+		return nil, fmt.Errorf("unexpected status code: %d", resp.StatusCode)
+	}
+
+	body, err := io.ReadAll(resp.Body)
+	if err != nil {
+		return nil, err
+	}
+
+	var result GovernorsList
+	if err := json.Unmarshal(body, &result); err != nil {
+		return nil, err
+	}
+
+	return &result, nil
 }

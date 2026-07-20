@@ -25,21 +25,35 @@ func NewCosmosFetcher(chainId string, APIs []string) (CosmosFetcher, error) {
 	return CosmosFetcher{ChainId: chainId, APIs: healthyApis}, nil
 }
 
-// GatherChainValidators pages through all on-chain validators and returns their
+// GatherChainOperators pages through all on-chain validators and returns their
 // descriptions keyed by operator address.
-func (f CosmosFetcher) GatherChainValidators() map[string]ValidatorDescription {
-	result := make(map[string]ValidatorDescription)
+//
+// It supports both validators and governors, depending on the `governors` flag.
+func (f CosmosFetcher) GatherChainOperators(governors bool) map[string]OperatorDescription {
+	fetchPage := fetchValoperPage
+	if governors {
+		fetchPage = fetchGovernorPage
+	}
+
+	result := make(map[string]OperatorDescription)
+	retryCount := 0
+	maxRetries := 10
 	nextKey := ""
 	for {
 		api := f.APIs[rand.Intn(len(f.APIs))]
-		page := fetchValoperList(api, nextKey)
-		if page == nil {
-			break
+		entries, next, err := fetchPage(api, nextKey)
+		if err != nil {
+			retryCount++
+			if retryCount >= maxRetries {
+				break
+			}
+			continue
 		}
-		for _, v := range page.Validators {
-			result[v.OperatorAddress] = v.Description
+
+		for _, e := range entries {
+			result[e.Address] = e.Description
 		}
-		nextKey = page.Pagination.NextKey
+		nextKey = next
 		if nextKey == "" {
 			break
 		}
@@ -71,4 +85,33 @@ func testApi(chainId, api string) (healthy bool) {
 	}
 
 	return nodeInfo.DefaultNodeInfo.Network == chainId
+}
+
+type operatorEntry struct {
+	Address     string
+	Description OperatorDescription
+}
+
+func fetchValoperPage(api, nextKey string) ([]operatorEntry, string, error) {
+	page, err := fetchValoperList(api, nextKey)
+	if err != nil {
+		return nil, "", err
+	}
+	entries := make([]operatorEntry, len(page.Validators))
+	for i, v := range page.Validators {
+		entries[i] = operatorEntry{Address: v.OperatorAddress, Description: v.Description}
+	}
+	return entries, page.Pagination.NextKey, nil
+}
+
+func fetchGovernorPage(api, nextKey string) ([]operatorEntry, string, error) {
+	page, err := fetchGovernorList(api, nextKey)
+	if err != nil {
+		return nil, "", err
+	}
+	entries := make([]operatorEntry, len(page.Governors))
+	for i, g := range page.Governors {
+		entries[i] = operatorEntry{Address: g.GovernorAddress, Description: g.Description}
+	}
+	return entries, page.Pagination.NextKey, nil
 }

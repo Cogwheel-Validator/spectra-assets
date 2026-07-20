@@ -33,10 +33,10 @@ type Validators struct {
 }
 
 type Validator struct {
-	OperatorAddress string               `json:"operator_address"`
-	Description     ValidatorDescription `json:"description"`
+	OperatorAddress string              `json:"operator_address"`
+	Description     OperatorDescription `json:"description"`
 }
-type ValidatorDescription struct {
+type OperatorDescription struct {
 	Moniker         string `json:"moniker"`
 	Details         string `json:"details"`
 	Identity        string `json:"identity"`
@@ -66,4 +66,16 @@ type CosmosValInfo struct {
 	OperatorAddress string
 	Identity        string
 	ImageUrl        string
+}
+
+type GovernorsList struct {
+	Governors  []Governor `json:"governors"`
+	Pagination Pagination `json:"pagination"`
+}
+
+type Governor struct {
+	GovernorAddress      string              `json:"governor_address"`
+	Status               string              `json:"status"`
+	Description          OperatorDescription `json:"description"`
+	LastStatusChangeTime string              `json:"last_status_change_time"`
 }

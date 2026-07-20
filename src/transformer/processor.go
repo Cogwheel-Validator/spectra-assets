@@ -4,6 +4,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"image"
+	"maps"
 	"os"
 	"path/filepath"
 	"spectra-assets/src/config"
@@ -51,7 +52,13 @@ func processChainBFT(chainDir string, cfg config.ChainConfig) error {
 		return nil
 	}
 
-	chainVals := fetcher.GatherChainValidators()
+	chainVals := fetcher.GatherChainOperators(false)
+	if cfg.Governors {
+		// Should be okay since we will just mix up valopers and gov addresses.
+		chainGovs := fetcher.GatherChainOperators(true)
+		maps.Copy(chainVals, chainGovs)
+	}
+
 	processed := make(map[string]bool, len(chainVals))
 
 	for address, desc := range chainVals {
