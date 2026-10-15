@@ -1,0 +1,7 @@
+{
+  "pretty_name": "Gnoland Onyx",
+  "chain_id": "onyx-1",
+  "chain_path": "gnoland_onyx",
+  "chain_type": "tm2",
+  "rpcs": ["https://gnoland-testnet-rpc.cogwheel.zone"]
+}

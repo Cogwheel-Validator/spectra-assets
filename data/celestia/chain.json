@@ -1,0 +1,7 @@
+{
+  "pretty_name": "Celestia",
+  "chain_id": "celestia",
+  "chain_path": "celestia",
+  "chain_type": "bft",
+  "apis": ["https://celestia-api.cogwheel.zone"]
+}
