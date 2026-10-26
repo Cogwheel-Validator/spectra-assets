@@ -1,6 +1,6 @@
 {
   "pretty_name": "Celestia Mocha Testnet",
-  "chain_id": "celestia-mocha-5",
+  "chain_id": "mocha-5",
   "chain_path": "celestia_testnet",
   "chain_type": "bft",
   "apis": ["https://celestia-testnet-api.cogwheel.zone"]
