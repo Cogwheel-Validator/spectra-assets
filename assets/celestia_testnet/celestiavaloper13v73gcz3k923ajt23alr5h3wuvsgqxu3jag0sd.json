@@ -1,0 +1,7 @@
+{
+  "address": "celestiavaloper13v73gcz3k923ajt23alr5h3wuvsgqxu3jag0sd",
+  "moniker": "celestia-rs",
+  "identity": "48CF1426E3872131",
+  "description": "Celestia consensus node in Rust",
+  "website": "https://github.com/celestiaorg/celestia-rs"
+}
